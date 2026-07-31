@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    FILE    : applyStatus.js-meta.xml
+    PURPOSE : Metadata config for the applyStatus LWC component.
+              Defines API version, App Builder visibility, and page targets.
+-->
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+
+    <!-- API version this component targets. Match your org's version. -->
+    <apiVersion>59.0</apiVersion>
+
+    <!-- 
+        true  → Visible in Lightning App Builder palette for drag-and-drop.
+        false → Hidden from App Builder, only usable as child component.
+    -->
+    <isExposed>true</isExposed>
+
+    <targets>
+        <!-- Custom Lightning App Pages -->
+        <target>lightning__AppPage</target>
+
+        <!-- Salesforce default Home page -->
+        <target>lightning__HomePage</target>
+
+        <!-- Any Object Record Detail page -->
+        <target>lightning__RecordPage</target>
+    </targets>
+
+</LightningComponentBundle>

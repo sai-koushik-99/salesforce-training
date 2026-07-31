@@ -1,0 +1,101 @@
+<!-- 
+    ═══════════════════════════════════════════════════════════════
+    FILE    : applyStatus.html
+    PURPOSE : Displays application status and an Apply button.
+              Status changes from "Not Applied" to "Applied"
+              when the button is clicked — using only JavaScript
+              reactive properties. No Apex. No Database.
+    ═══════════════════════════════════════════════════════════════
+-->
+<template>
+
+    <!-- 
+        slds-card → plain SLDS CSS class styled as a card.
+        Avoids lightning-card component double rendering issue
+        when placed on Lightning App Pages via App Builder.
+    -->
+    <div class="slds-card">
+
+        <!-- Card Header -->
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure slds-media__figure_fixed-width">
+                    <!-- lightning-icon: briefcase icon for job application -->
+                    <lightning-icon icon-name="standard:opportunity" size="small"></lightning-icon>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>Job Application</span>
+                    </h2>
+                </div>
+            </header>
+        </div>
+
+        <!-- Card Body -->
+        <div class="slds-card__body slds-card__body_inner">
+
+            <!-- 
+                Status Display Box
+                slds-box → bordered box around the status text.
+                slds-text-align_center → centers the content.
+                slds-m-bottom_large → spacing below the box.
+            -->
+            <div class="slds-box slds-m-bottom_large slds-text-align_center">
+
+                <!-- Static label "Status :" — never changes -->
+                <span class="slds-text-title_caps slds-text-color_weak slds-m-right_x-small">
+                    Status :
+                </span>
+
+                <!-- 
+                    {statusText} → data binding from applyStatus.js.
+                    Shows "Not Applied" initially, "Applied" after click.
+                    style={statusStyle} → changes color: red or green from JS.
+                -->
+                <span class="slds-text-heading_medium" style={statusStyle}>
+                    {statusText}
+                </span>
+
+            </div>
+
+            <!-- 
+                Apply Button — only visible when NOT yet applied.
+                lwc:if={showApplyButton} → removed from DOM when false.
+            -->
+            <div lwc:if={showApplyButton} class="slds-text-align_center">
+                <!-- onclick={handleApply} → calls handleApply() in applyStatus.js -->
+                <lightning-button
+                    label="Apply"
+                    variant="brand"
+                    onclick={handleApply}>
+                </lightning-button>
+            </div>
+
+            <!-- 
+                Success Message — only shown AFTER Apply is clicked.
+                lwc:if={showSuccessMessage} → added to DOM when true.
+            -->
+            <div lwc:if={showSuccessMessage} class="slds-m-top_medium slds-text-align_center">
+
+                <!-- Green success box with confirmation message -->
+                <div class="slds-box slds-theme_success">
+                    <p class="slds-text-body_regular">{successMessage}</p>
+                </div>
+
+                <!-- Reset button to go back to "Not Applied" state -->
+                <div class="slds-m-top_medium">
+                    <lightning-button
+                        label="Reset Status"
+                        variant="neutral"
+                        onclick={handleReset}>
+                    </lightning-button>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- End: Card Body -->
+
+    </div>
+
+</template>

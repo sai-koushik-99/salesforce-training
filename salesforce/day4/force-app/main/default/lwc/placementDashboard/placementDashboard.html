@@ -1,0 +1,83 @@
+<template>
+    <div class="slds-p-around_medium">
+
+        <!-- Header -->
+        <div class="portal-header slds-m-bottom_small">
+            <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+
+                <div class="slds-col slds-grid slds-grid_vertical-align-center">
+                    <lightning-icon icon-name="standard:account" size="small" variant="inverse" class="slds-m-right_small"></lightning-icon>
+                    <div>
+                        <h1 class="portal-title">Placement Portal</h1>
+                        <p class="portal-subtitle">Placement Management System</p>
+                    </div>
+                </div>
+
+                <div class="slds-col slds-text-align_right">
+                    <lightning-icon icon-name="utility:event" size="x-small" variant="inverse" class="slds-m-right_x-small"></lightning-icon>
+                    <span class="date-text">{todayDate}</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Welcome -->
+        <div class="welcome-banner slds-m-bottom_medium">
+            <h2 class="welcome-title">Welcome, Student! 👋</h2>
+            <p class="welcome-subtitle">Here's your placement activity summary for today.</p>
+        </div>
+
+        <!-- Stat Cards -->
+        <div class="slds-grid slds-gutters slds-wrap slds-m-bottom_medium">
+
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-bottom_small">
+                <div class="stat-card companies">
+                    <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                        <lightning-icon icon-name="standard:account" size="medium" variant="inverse"></lightning-icon>
+                        <span class="stat-number">25</span>
+                    </div>
+                    <p class="stat-label">Number of Companies</p>
+                </div>
+            </div>
+
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-bottom_small">
+                <div class="stat-card jobs">
+                    <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                        <lightning-icon icon-name="standard:work_order" size="medium" variant="inverse"></lightning-icon>
+                        <span class="stat-number">63</span>
+                    </div>
+                    <p class="stat-label">Number of Jobs</p>
+                </div>
+            </div>
+
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-bottom_small">
+                <div class="stat-card applications">
+                    <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                        <lightning-icon icon-name="standard:document" size="medium" variant="inverse"></lightning-icon>
+                        <span class="stat-number">5</span>
+                    </div>
+                    <p class="stat-label">Applications Submitted</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Actions -->
+        <div class="slds-grid slds-grid_align-center slds-gutters">
+            <div class="slds-col slds-shrink-none">
+                <lightning-button label="Browse Jobs" variant="brand" icon-name="utility:search" icon-position="left" onclick={handleBrowseJobs}></lightning-button>
+            </div>
+            <div class="slds-col slds-shrink-none">
+                <lightning-button label="My Applications" variant="neutral" icon-name="utility:file" icon-position="left" onclick={handleMyApplications}></lightning-button>
+            </div>
+        </div>
+
+        <!-- Feedback -->
+        <div lwc:if={showToast} class="slds-m-top_small">
+            <div class="toast-message">
+                <p>{toastMessage}</p>
+            </div>
+        </div>
+
+    </div>
+</template>

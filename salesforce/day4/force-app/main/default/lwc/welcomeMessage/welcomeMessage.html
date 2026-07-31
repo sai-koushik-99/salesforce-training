@@ -1,0 +1,66 @@
+<!-- 
+    ═══════════════════════════════════════════════════════════════
+    FILE    : welcomeMessage.html
+    PURPOSE : UI layout for the welcomeMessage component.
+              Contains a button and a conditionally shown message.
+    CONCEPT : Event Handling — button click triggers a JS method.
+    ═══════════════════════════════════════════════════════════════
+-->
+<template>
+
+    <!-- slds-card → SLDS plain CSS card. Avoids lightning-card double render issue. -->
+    <div class="slds-card">
+
+        <!-- Card Header -->
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure slds-media__figure_fixed-width">
+                    <lightning-icon icon-name="utility:chat" size="small"></lightning-icon>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>Welcome Message Demo</span>
+                    </h2>
+                </div>
+            </header>
+        </div>
+
+        <!-- Card Body -->
+        <div class="slds-card__body slds-card__body_inner">
+
+            <p class="slds-text-body_regular slds-m-bottom_medium">
+                Click the button below to display a welcome message.
+            </p>
+
+            <!-- onclick={handleShowMessage} → calls JS method on click -->
+            <lightning-button
+                label="Show Welcome Message"
+                variant="brand"
+                onclick={handleShowMessage}>
+            </lightning-button>
+
+            <!-- 
+                lwc:if={isMessageVisible} → added to DOM only when true.
+                Shows the welcome message after button click.
+            -->
+            <div lwc:if={isMessageVisible} class="slds-m-top_large">
+                <div class="slds-box slds-theme_success slds-text-align_center">
+                    <!-- {welcomeText} → data binding from welcomeMessage.js -->
+                    <p class="slds-text-heading_medium">{welcomeText}</p>
+                </div>
+            </div>
+
+            <!-- Hide button — only shown when message is visible -->
+            <div lwc:if={isMessageVisible} class="slds-m-top_medium">
+                <lightning-button
+                    label="Hide Message"
+                    variant="neutral"
+                    onclick={handleHideMessage}>
+                </lightning-button>
+            </div>
+
+        </div>
+
+    </div>
+
+</template>

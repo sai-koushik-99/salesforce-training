@@ -1,0 +1,56 @@
+<!-- 
+    FILE: placementHome.html
+    PURPOSE: Defines the visual layout of the placementHome component.
+    Every LWC HTML file must have exactly ONE root <template> tag.
+-->
+<template>
+
+    <!-- slds-card → SLDS plain CSS card. Avoids lightning-card double render issue. -->
+    <div class="slds-card">
+
+        <!-- Card Header -->
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure slds-media__figure_fixed-width">
+                    <lightning-icon icon-name="standard:account" size="small"></lightning-icon>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>Placement Portal</span>
+                    </h2>
+                </div>
+            </header>
+        </div>
+
+        <!-- Card Body -->
+        <div class="slds-card__body slds-card__body_inner">
+
+            <!-- {welcomeMessage} → data binding from placementHome.js -->
+            <h1 class="slds-text-heading_large">{welcomeMessage}</h1>
+
+            <div class="slds-m-top_small">
+                <p class="slds-text-body_regular">
+                    Your gateway to top placement opportunities.
+                    Explore jobs, apply, and track your applications.
+                </p>
+            </div>
+
+            <div class="slds-m-top_medium">
+                <!-- onclick={handleGetStarted} → calls JS method on click -->
+                <lightning-button
+                    label="Get Started"
+                    variant="brand"
+                    onclick={handleGetStarted}>
+                </lightning-button>
+            </div>
+
+            <!-- lwc:if={showMessage} → only shown after button click -->
+            <div lwc:if={showMessage} class="slds-m-top_medium">
+                <lightning-badge label={statusMessage}></lightning-badge>
+            </div>
+
+        </div>
+
+    </div>
+
+</template>

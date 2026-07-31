@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    FILE: studentInfo.js-meta.xml
+    PURPOSE: Metadata configuration for the studentInfo LWC component.
+    Tells Salesforce the API version, App Builder visibility, 
+    and which page types this component is allowed on.
+-->
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+
+    <!-- 
+        apiVersion: Links this component to a specific Salesforce release.
+        59.0 = Spring '23. Should match your org's current API version.
+    -->
+    <apiVersion>59.0</apiVersion>
+
+    <!-- 
+        isExposed:
+        true  → Component is visible in Lightning App Builder palette.
+                Admins can drag and drop it onto any allowed page type.
+        false → Component is hidden from App Builder.
+                Only usable as a child component inside another LWC.
+    -->
+    <isExposed>true</isExposed>
+
+    <!-- 
+        targets: Lists which Lightning page types show this component 
+        in the App Builder left-side component palette.
+    -->
+    <targets>
+
+        <!-- Appears in App Builder for custom Lightning App Pages -->
+        <target>lightning__AppPage</target>
+
+        <!-- Appears in App Builder for the Salesforce Home page -->
+        <target>lightning__HomePage</target>
+
+        <!-- Appears in App Builder for Object Record Detail pages -->
+        <target>lightning__RecordPage</target>
+
+    </targets>
+
+</LightningComponentBundle>
