@@ -1,53 +1,74 @@
-# Salesforce Training — Day 6
+# Day 6 – Apex Triggers & Trigger Handler (Placement Management System)
 
-## 1. What is LWC?
-**LWC (Lightning Web Component)** is Salesforce's modern UI framework built on web standards — HTML, JavaScript (ES6+), and CSS. Every component has three files: `.html` (view), `.js` (logic), and `.js-meta.xml` (config). Components run inside Lightning Experience and use a reactive data model — when a JS property changes, the HTML updates automatically without a page refresh.
+## Overview
 
----
+This module focuses on implementing Apex Triggers using a clean and scalable architecture. Instead of placing all business logic directly inside the trigger, the logic is separated into service classes, making the code easier to maintain, test, and extend.
 
-## 2. What did you build?
-On Day 6, we built advanced features of the **Placement Management System** — focusing on connecting LWC components to Salesforce data using **Apex** and **Wire Adapters**.
+The implementation is based on a Placement Management System, where students apply for jobs and the system validates applications, updates placement statistics, and handles notifications based on application status changes.
 
----
+## Objectives
 
-## 3. Which file contains HTML?
-The **`.html`** file contains the UI layout wrapped inside a single `<template>` tag.
-```html
-<template>
-    <div>{studentName}</div>
-</template>
-```
+* Understand the purpose of Apex Triggers.
+* Learn the Trigger Handler design pattern.
+* Implement business logic using service classes.
+* Follow Salesforce best practices by writing bulk-safe code.
+* Keep triggers lightweight and maintainable.
 
----
+## Features Implemented
 
-## 4. Which file contains JavaScript?
-The **`.js`** file contains all logic, Apex calls, wire adapters, and event handlers.
-```javascript
-import { LightningElement, wire } from 'lwc';
-import getStudents from '@salesforce/apex/StudentController.getStudents';
-
-export default class StudentList extends LightningElement {
-    @wire(getStudents) students;
-}
-```
-
----
-
-## 5. What did you learn today?
-- **Apex Integration** — calling server-side Apex methods from LWC using `@wire` and imperative calls
-- **`@wire` decorator** — automatically fetching Salesforce data when the component loads
-- **Imperative Apex** — manually calling Apex inside event handlers for user-triggered data operations
-- **`lightning-datatable`** — displaying records in a professional table with sorting and row actions
-- **Error Handling** — using `lwc:if={error}` to show user-friendly error messages when Apex fails
-- **`@salesforce/apex`** — the import syntax for bringing Apex methods into JavaScript
-
----
+* Created an `Application__c` trigger for handling record events.
+* Validated student eligibility before application submission.
+* Updated placement statistics after a student is selected.
+* Triggered notifications when the application status changes.
+* Organized business logic into reusable service classes.
 
 ## Project Structure
-```
-day6/
-└── README.md
+
+```text
+force-app/
+└── main/
+    └── default/
+        ├── classes/
+        │   ├── ApplicationService.cls
+        │   ├── StatisticsService.cls
+        │   ├── NotificationService.cls
+        │   └── Test Classes
+        └── triggers/
+            └── ApplicationTrigger.trigger
 ```
 
----
-*Salesforce LWC Bootcamp — Vishnu Placement Portal Project*
+## Business Logic
+
+### Before Insert
+
+* Validates whether the student meets the job eligibility criteria.
+* Checks conditions such as minimum CGPA and allowed backlogs before creating an application.
+
+### After Update
+
+* Updates placement statistics when an application is marked as **Selected**.
+* Handles notification logic for important status changes such as Interview Scheduled, Selected, Rejected, and Offer Accepted.
+
+## Concepts Covered
+
+* Apex Triggers
+* Trigger Context Variables
+* Before Insert Trigger
+* After Update Trigger
+* Trigger Handler Pattern
+* Service Layer Architecture
+* Bulk-Safe Development
+* SOQL
+* DML Operations
+* Collections (List, Set, Map)
+
+## Best Practices Followed
+
+* Business logic is separated from the trigger.
+* Bulk processing is used to support multiple records.
+* SOQL and DML operations are performed outside loops.
+* Code is structured for better readability and future maintenance.
+
+## Learning Outcomes
+
+After completing this module, I gained a better understanding of how Salesforce triggers work and how to build scalable Apex solutions using the Trigger Handler pattern. I also learned the importance of writing bulk-safe code, organizing business logic into service classes, and following Salesforce development best practices.
