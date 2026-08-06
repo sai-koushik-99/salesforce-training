@@ -1,7 +1,3 @@
-Here's a **GitHub README** version that sounds natural and like it was written by a student documenting their learning, rather than an AI-generated report.
-
----
-
 # Day 7 – Bulk-Safe Business Logic with Apex
 
 ## Overview
@@ -102,38 +98,3 @@ ApplicationService
 * Use Sets to collect unique record IDs.
 * Use Maps to reduce unnecessary searches.
 * Perform bulk queries and bulk updates whenever possible.
-
----
-
-## Challenges Faced
-
-While working on the Trigger → Handler → Service architecture, I initially found it confusing because the same `Trigger.new` list is passed from one layer to another. After understanding the execution flow, I realized that the Handler is mainly responsible for routing trigger events, while the Service class contains the business logic. This separation makes the project easier to maintain as it grows.
-
-I also spent time understanding how `Trigger.new` and `Trigger.old` work internally and how they help compare record values during updates.
-
----
-
-## Key Takeaways
-
-* Always assume that a trigger can process multiple records.
-* Write Apex code that is bulk-safe from the beginning.
-* Use Sets and Maps to improve performance.
-* Keep SOQL and DML operations outside loops.
-* Use `Trigger.oldMap` to compare previous and current record values.
-* Separate trigger logic from business logic using Handler and Service classes.
-* Clean architecture makes Salesforce applications easier to understand, test, and maintain.
-
----
-
-## Skills Gained
-
-* Apex Triggers
-* Trigger Context Variables
-* Bulkification
-* SOQL
-* DML
-* Collections (List, Set, Map)
-* Governor Limits
-* Trigger Handler Pattern
-* Service Layer Design
-* Business Logic Implementation
