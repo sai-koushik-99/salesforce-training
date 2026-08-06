@@ -1,63 +1,139 @@
-# Salesforce Training — Day 7
-
-## 1. What is LWC?
-**LWC (Lightning Web Component)** is Salesforce's modern UI framework built on web standards — HTML, JavaScript (ES6+), and CSS. Every component has three files: `.html` (view), `.js` (logic), and `.js-meta.xml` (config). Components run inside Lightning Experience and use a reactive data model — when a JS property changes, the HTML updates automatically without a page refresh.
+Here's a **GitHub README** version that sounds natural and like it was written by a student documenting their learning, rather than an AI-generated report.
 
 ---
 
-## 2. What did you build?
-On Day 7, we completed the **Placement Management System** — integrating all components together into a full working application with navigation, data persistence, and a polished UI.
+# Day 7 – Bulk-Safe Business Logic with Apex
+
+## Overview
+
+On Day 7, I focused on writing **bulk-safe Apex code** and understanding why Salesforce applications must be designed to handle multiple records in a single transaction. I learned how to avoid governor limit issues by using collections like **List**, **Set**, and **Map**, and by writing efficient SOQL and DML operations.
+
+I also implemented a simple **Trigger → Handler → Service** architecture to separate trigger logic from business logic, making the code cleaner and easier to maintain.
 
 ---
 
-## 3. Which file contains HTML?
-The **`.html`** file contains the UI layout wrapped inside a single `<template>` tag.
-```html
-<template>
-    <lightning-datatable
-        data={records}
-        columns={columns}
-        key-field="id">
-    </lightning-datatable>
-</template>
+## What I Learned
+
+* What bulkification is and why it is important in Salesforce.
+* How Salesforce processes multiple records using `Trigger.new`.
+* Difference between `Trigger.new`, `Trigger.old`, and `Trigger.oldMap`.
+* When to use **Before** and **After** triggers.
+* How to use **Lists**, **Sets**, and **Maps** in Apex.
+* Why SOQL and DML statements should never be placed inside loops.
+* How to organize Apex code using Trigger, Handler, and Service classes.
+
+---
+
+## Hands-on Tasks Completed
+
+### 1. Bulk Eligibility Validation
+
+Implemented validation logic to check whether a student is eligible to apply for a job.
+
+The implementation included:
+
+* Collecting Student IDs and Job IDs using `Set<Id>`.
+* Querying Student and Job records using bulk SOQL.
+* Storing queried records in Maps for quick lookup.
+* Comparing the student's CGPA with the job's minimum CGPA.
+* Displaying an error message when the student does not meet the eligibility criteria.
+
+---
+
+### 2. Bulk Student Status Update
+
+Implemented logic to detect when an application's status changes to **Selected**.
+
+The implementation included:
+
+* Comparing old and new status values using `Trigger.oldMap`.
+* Collecting affected Student IDs.
+* Querying Student records in a single SOQL query.
+* Updating all required Student records using one DML operation.
+
+---
+
+### 3. Trigger Architecture
+
+Created a simple three-layer architecture:
+
+```text
+ApplicationTrigger
+        │
+        ▼
+ApplicationTriggerHandler
+        │
+        ▼
+ApplicationService
 ```
 
----
-
-## 4. Which file contains JavaScript?
-The **`.js`** file contains all logic, navigation, Apex calls, and state management.
-```javascript
-import { LightningElement, wire } from 'lwc';
-import { NavigationMixin } from 'lightning/navigation';
-
-export default class PlacementApp extends NavigationMixin(LightningElement) {
-    navigateToJobs() {
-        this[NavigationMixin.Navigate]({
-            type: 'standard__namedPage',
-            attributes: { pageName: 'home' }
-        });
-    }
-}
-```
+* **Trigger** – Listens for record events.
+* **Handler** – Routes trigger events to the appropriate methods.
+* **Service** – Contains the actual business logic.
 
 ---
 
-## 5. What did you learn today?
-- **NavigationMixin** — navigating between pages and records programmatically from LWC
-- **`lightning-record-form`** — auto-generated forms for creating and editing Salesforce records
-- **`lightning-record-view-form`** — displaying record field values without writing HTML manually
-- **`getRecord` wire adapter** — fetching a single record's fields using the record ID
-- **`getFieldValue`** — reading individual field values from a wired record
-- **Component Composition** — building a full app by nesting multiple LWC components together
-- **Deployment Best Practices** — organizing components, deploying with SF CLI, and version control with Git
+## Key Concepts Practiced
+
+### Trigger Context Variables
+
+* `Trigger.new`
+* `Trigger.old`
+* `Trigger.oldMap`
+* `Trigger.isBefore`
+* `Trigger.isAfter`
+* `Trigger.isInsert`
+* `Trigger.isUpdate`
 
 ---
 
-## Project Structure
-```
-day7/
-└── README.md
-```
+### Collections
+
+* **List** – Stores multiple records.
+* **Set** – Stores unique values and removes duplicates.
+* **Map** – Provides fast record lookup using an Id.
 
 ---
-*Salesforce LWC Bootcamp — Vishnu Placement Portal Project*
+
+### Bulk Processing Best Practices
+
+* Avoid SOQL queries inside loops.
+* Avoid DML statements inside loops.
+* Use Sets to collect unique record IDs.
+* Use Maps to reduce unnecessary searches.
+* Perform bulk queries and bulk updates whenever possible.
+
+---
+
+## Challenges Faced
+
+While working on the Trigger → Handler → Service architecture, I initially found it confusing because the same `Trigger.new` list is passed from one layer to another. After understanding the execution flow, I realized that the Handler is mainly responsible for routing trigger events, while the Service class contains the business logic. This separation makes the project easier to maintain as it grows.
+
+I also spent time understanding how `Trigger.new` and `Trigger.old` work internally and how they help compare record values during updates.
+
+---
+
+## Key Takeaways
+
+* Always assume that a trigger can process multiple records.
+* Write Apex code that is bulk-safe from the beginning.
+* Use Sets and Maps to improve performance.
+* Keep SOQL and DML operations outside loops.
+* Use `Trigger.oldMap` to compare previous and current record values.
+* Separate trigger logic from business logic using Handler and Service classes.
+* Clean architecture makes Salesforce applications easier to understand, test, and maintain.
+
+---
+
+## Skills Gained
+
+* Apex Triggers
+* Trigger Context Variables
+* Bulkification
+* SOQL
+* DML
+* Collections (List, Set, Map)
+* Governor Limits
+* Trigger Handler Pattern
+* Service Layer Design
+* Business Logic Implementation
