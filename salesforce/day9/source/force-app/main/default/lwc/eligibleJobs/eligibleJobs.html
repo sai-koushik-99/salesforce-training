@@ -1,0 +1,35 @@
+<template>
+    <lightning-card title="Eligible Jobs">
+
+        <template if:true={isLoading}>
+            <p>Loading eligible jobs...</p>
+        </template>
+
+        <template if:true={errorMessage}>
+            <p>{errorMessage}</p>
+        </template>
+
+        <template if:false={isLoading}>
+            <template if:true={hasJobs}>
+                <template for:each={jobs} for:item="job">
+                    <lightning-card key={job.id} title={job.company}>
+                        <p>Role: {job.role}</p>
+                        <p>Package: {job.packageOffered}</p>
+                        <p>Location: {job.location}</p>
+                        <p>Deadline: {job.deadline}</p>
+                        <lightning-button
+                            label="View Details"
+                            data-company={job.company}
+                            data-role={job.role}
+                            onclick={handleViewDetails}>
+                        </lightning-button>
+                    </lightning-card>
+                </template>
+            </template>
+            <template if:false={hasJobs}>
+                <p>No eligible jobs are currently available.</p>
+            </template>
+        </template>
+
+    </lightning-card>
+</template>
