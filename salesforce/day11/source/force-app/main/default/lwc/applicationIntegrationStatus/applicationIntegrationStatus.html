@@ -1,0 +1,131 @@
+<template>
+    <lightning-card title="Candidate Integration Status" icon-name="utility:connected_apps">
+        <div class="slds-p-around_medium">
+
+            <!-- Loading state -->
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading..." size="small"></lightning-spinner>
+            </template>
+
+            <!-- Error state from @wire -->
+            <template if:true={wireError}>
+                <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+                    <p>Error loading integration details: {wireError}</p>
+                </div>
+            </template>
+
+            <!-- Main content — only shows when data is available -->
+            <template if:true={application}>
+
+                <!-- Student and Job info row -->
+                <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                    <div class="slds-col">
+                        <p class="slds-text-title_caps slds-text-color_weak">Candidate</p>
+                        <p class="slds-text-heading_small">{application.Student__r.Name}</p>
+                    </div>
+                    <div class="slds-col">
+                        <p class="slds-text-title_caps slds-text-color_weak">Company</p>
+                        <p class="slds-text-heading_small">{application.Job__r.Company__c}</p>
+                    </div>
+                    <div class="slds-col">
+                        <p class="slds-text-title_caps slds-text-color_weak">Role</p>
+                        <p class="slds-text-heading_small">{application.Job__r.Name}</p>
+                    </div>
+                </div>
+
+                <hr/>
+
+                <!-- Application Status -->
+                <div class="slds-grid slds-gutters slds-m-top_medium">
+                    <div class="slds-col">
+                        <p class="slds-text-title_caps slds-text-color_weak">Application Status</p>
+                        <lightning-badge label={application.Status__c}
+                            class={applicationStatusClass}>
+                        </lightning-badge>
+                    </div>
+
+                    <!-- Integration Status — with colour coding -->
+                    <div class="slds-col">
+                        <p class="slds-text-title_caps slds-text-color_weak">Integration Status</p>
+                        <template if:true={application.Integration_Status__c}>
+                            <lightning-badge label={application.Integration_Status__c}
+                                class={integrationStatusClass}>
+                            </lightning-badge>
+                        </template>
+                        <template if:false={application.Integration_Status__c}>
+                            <p class="slds-text-color_weak">Not yet synced</p>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- External Candidate ID — only show if populated -->
+                <template if:true={application.External_Candidate_Id__c}>
+                    <div class="slds-m-top_medium">
+                        <p class="slds-text-title_caps slds-text-color_weak">External Candidate ID</p>
+                        <p class="slds-text-body_regular slds-text-color_success">
+                            ✓ {application.External_Candidate_Id__c}
+                        </p>
+                    </div>
+                </template>
+
+                <!-- Last Integration Attempt -->
+                <template if:true={application.Last_Integration_Attempt__c}>
+                    <div class="slds-m-top_medium">
+                        <p class="slds-text-title_caps slds-text-color_weak">Last Sync Attempt</p>
+                        <lightning-formatted-date-time
+                            value={application.Last_Integration_Attempt__c}
+                            year="numeric"
+                            month="short"
+                            day="2-digit"
+                            hour="2-digit"
+                            minute="2-digit">
+                        </lightning-formatted-date-time>
+                    </div>
+                </template>
+
+                <!-- Integration Error — only show if there is an error -->
+                <template if:true={application.Integration_Error__c}>
+                    <div class="slds-m-top_medium">
+                        <p class="slds-text-title_caps slds-text-color_weak">Integration Error</p>
+                        <div class="slds-box slds-theme_error slds-m-top_x-small">
+                            <p class="slds-text-body_small">{application.Integration_Error__c}</p>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Action buttons -->
+                <div class="slds-m-top_large">
+
+                    <!-- Sync button — only show if status is Selected and not already Sent -->
+                    <template if:true={canSync}>
+                        <lightning-button
+                            label="Sync Candidate"
+                            variant="brand"
+                            icon-name="utility:sync"
+                            onclick={handleSync}
+                            disabled={isSyncing}>
+                        </lightning-button>
+                    </template>
+
+                    <!-- Already synced message -->
+                    <template if:true={isSent}>
+                        <p class="slds-text-color_success slds-m-top_small">
+                            ✓ Candidate successfully synced to RecruitEdge
+                        </p>
+                    </template>
+
+                </div>
+
+                <!-- Sync in progress toast substitute -->
+                <template if:true={syncMessage}>
+                    <div class="slds-notify slds-notify_toast slds-theme_info slds-m-top_medium"
+                         role="status">
+                        <p>{syncMessage}</p>
+                    </div>
+                </template>
+
+            </template>
+
+        </div>
+    </lightning-card>
+</template>

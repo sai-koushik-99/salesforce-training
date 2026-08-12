@@ -1,0 +1,15 @@
+<template>
+    <div class="slds-p-around_medium">
+        <!-- {title} and {message} are passed in by the parent using @api -->
+        <h2>{title}</h2>
+        <p>{message}</p>
+
+        <!-- Only show the button if actionLabel was passed in by the parent -->
+        <template if:true={actionLabel}>
+            <lightning-button
+                label={actionLabel}
+                onclick={handleClick}>
+            </lightning-button>
+        </template>
+    </div>
+</template>

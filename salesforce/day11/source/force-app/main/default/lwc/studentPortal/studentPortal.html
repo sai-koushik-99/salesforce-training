@@ -1,0 +1,18 @@
+<template>
+    <lightning-card title="Student Placement Portal">
+        <div class="slds-p-around_medium">
+
+            <!-- Pass recordId down to studentProfile so it can load the correct student -->
+            <!-- record-id={recordId} is Parent → Child communication -->
+            <c-student-profile
+                record-id={recordId}>
+            </c-student-profile>
+
+            <!-- Add some vertical space between the two sections -->
+            <div class="slds-m-top_large">
+                <c-eligible-jobs></c-eligible-jobs>
+            </div>
+
+        </div>
+    </lightning-card>
+</template>

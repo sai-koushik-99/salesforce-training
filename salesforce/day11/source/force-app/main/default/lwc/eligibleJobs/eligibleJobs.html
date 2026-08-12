@@ -1,0 +1,28 @@
+<template>
+    <lightning-card title="Eligible Jobs">
+
+        <!-- if:true={hasJobs} — only shows this block when the jobs list has items -->
+        <template if:true={hasJobs}>
+            <!-- for:each loops through every job in the jobs array -->
+            <!-- for:item="job" means each item in the loop is called "job" -->
+            <!-- key={job.Id} is required by Salesforce to track each item uniquely -->
+            <template for:each={jobs} for:item="job">
+                <c-job-card
+                    key={job.Id}
+                    job={job}
+                    onapply={handleApply}
+                    onview={handleView}>
+                </c-job-card>
+            </template>
+        </template>
+
+        <!-- if:false={hasJobs} — only shows this block when the jobs list is empty -->
+        <template if:false={hasJobs}>
+            <c-empty-state
+                title="No Jobs Available"
+                message="No eligible jobs found for you right now.">
+            </c-empty-state>
+        </template>
+
+    </lightning-card>
+</template>

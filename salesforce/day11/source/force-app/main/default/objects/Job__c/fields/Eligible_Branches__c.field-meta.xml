@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Eligible_Branches__c</fullName>
+    <label>Eligible Branches</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>cse</fullName>
+                <default>false</default>
+                <label>cse</label>
+            </value>
+            <value>
+                <fullName>ece</fullName>
+                <default>false</default>
+                <label>ece</label>
+            </value>
+            <value>
+                <fullName>aids</fullName>
+                <default>false</default>
+                <label>aids</label>
+            </value>
+            <value>
+                <fullName>aiml</fullName>
+                <default>false</default>
+                <label>aiml</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
