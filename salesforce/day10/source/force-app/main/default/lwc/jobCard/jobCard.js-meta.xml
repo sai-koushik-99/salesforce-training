@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <!-- isExposed false means this component cannot be placed on a page directly -->
+    <!-- It is only used inside other components like eligibleJobs -->
+    <isExposed>false</isExposed>
+</LightningComponentBundle>

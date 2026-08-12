@@ -1,0 +1,20 @@
+<template>
+    <lightning-card title={job.Name}>
+        <div class="slds-p-around_medium">
+            <p>Company: {job.Company__c}</p>
+            <p>Minimum CGPA: {job.Minimum_CGPA__c}</p>
+            <br/>
+            <!-- View Details button — fires a 'view' event to parent -->
+            <lightning-button
+                label="View Details"
+                onclick={handleView}>
+            </lightning-button>
+            <!-- Apply button — fires an 'apply' event to parent -->
+            <lightning-button
+                label="Apply"
+                variant="brand"
+                onclick={handleApply}>
+            </lightning-button>
+        </div>
+    </lightning-card>
+</template>
